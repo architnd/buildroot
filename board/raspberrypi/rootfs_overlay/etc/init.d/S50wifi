@@ -1,0 +1,20 @@
+#!/bin/sh
+
+echo "Starting WiFi..."
+
+# Load WiFi module
+modprobe brcmfmac
+
+# Wait for wlan0 to appear
+sleep 2
+
+# Start wpa_supplicant
+wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf
+
+# Wait for connection
+sleep 3
+
+# Start DHCP client
+udhcpc -i wlan0
+
+echo "WiFi connected"
